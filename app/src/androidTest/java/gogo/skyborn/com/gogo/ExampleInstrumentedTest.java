@@ -1,4 +1,4 @@
-package treerun.skyborn.com.treerun;
+package fittree.skyborn.com.gogo;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

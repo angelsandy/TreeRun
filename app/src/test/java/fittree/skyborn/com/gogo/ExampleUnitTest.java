@@ -1,4 +1,4 @@
-package treerun.skyborn.com.treerun;
+package treerun.skyborn.com.fittree;
 
 import org.junit.Test;
 

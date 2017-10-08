@@ -1,3 +1,19 @@
 <resources>
-    <string name="app_name">TreeRun</string>
+    <string name="app_name">Gogo</string>
+    <string name="sin_cuenta">¿Sin cuenta?</string>
+    <string name="registrate">Registrate</string>
+    <string name="contrasenia_olvidada">¿Contraseña olvidada?</string>
+    <string name="facebook_app_id">1376433975786864</string>
+    <string name="tiempo_titulo" translatable="true">¿A qué hora debes levantarte?</string>
+    <string name="rutina_mañanera" translatable="true">Rutina Mañanera</string>
+    <string name="es_tarde" translatable="true">¡Es tarde!</string>
+    <string name="calma_aun_es_temprano" translatable="true">Calma,aún es temprano</string>
+    <string name="otra_vez" translatable="true">¡Otra Vez!</string>
+    <string name="no_te_olvides" translatable="true">No olvides...</string>
+    <string name="click_objetos" translatable="true">Click en los objetos que ya tienes</string>
+    <string name="titulo_nombre" translatable="true">Nombre</string>
+    <string name="titulo_hora_despertar" translatable="true">Hora de despertar</string>
+    <string name="titulo_nivel" translatable="true">Nivel</string>
+    <string name="titulo_insignias" translatable="true">Insignias</string>
+    <string name="titulo_no_olvidar" translatable="true">No puedo olvidar</string>
 </resources>

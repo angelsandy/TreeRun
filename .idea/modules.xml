@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TreeRun.iml" filepath="$PROJECT_DIR$/TreeRun.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Gogo.iml" filepath="$PROJECT_DIR$/Gogo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

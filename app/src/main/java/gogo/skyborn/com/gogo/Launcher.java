@@ -1,4 +1,4 @@
-package treerun.skyborn.com.treerun;
+package gogo.skyborn.com.gogo;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.view.Window;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import fittree.skyborn.com.gogo.R;
 
 /**
  * Created by Sandy on 7/5/2017.
@@ -23,11 +25,11 @@ public class Launcher extends Activity {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.tr_launcher);
+        setContentView(R.layout.gg_launcher);
         SharedPreferences treeRunData = getSharedPreferences(TREE_RUN_PREFERENCE, Context.MODE_PRIVATE);
         if(treeRunData != null) {
             if(treeRunData.getBoolean("isFirstTime",true)){
-                SPLASH_SCREEN_DELAY = 5000;
+                SPLASH_SCREEN_DELAY = 1000;
                 treeRunData.edit().putBoolean("isFirstTime",false).commit();
             }
         }
