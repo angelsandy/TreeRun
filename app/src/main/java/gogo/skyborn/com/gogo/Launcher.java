@@ -13,31 +13,36 @@ import java.util.TimerTask;
 
 import fittree.skyborn.com.gogo.R;
 
-/**
- * Created by Sandy on 7/5/2017.
- */
-
 public class Launcher extends Activity {
     private static long SPLASH_SCREEN_DELAY = 3000;
-    private final static String TREE_RUN_PREFERENCE = "TreeRunData";
+    private boolean mIsFirstTime;
+    private final static String GO_GO_PREFERENCE = "GOGOData";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.gg_launcher);
-        SharedPreferences treeRunData = getSharedPreferences(TREE_RUN_PREFERENCE, Context.MODE_PRIVATE);
-        if(treeRunData != null) {
-            if(treeRunData.getBoolean("isFirstTime",true)){
+        SharedPreferences gogoData = getSharedPreferences(GO_GO_PREFERENCE, Context.MODE_PRIVATE);
+        if (gogoData != null) {
+            mIsFirstTime = gogoData.getBoolean("isFirstTime", true);
+            if (mIsFirstTime) {
                 SPLASH_SCREEN_DELAY = 1000;
-                treeRunData.edit().putBoolean("isFirstTime",false).commit();
+                gogoData.edit().putBoolean("isFirstTime", false).commit();
             }
         }
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                Intent mainIntent = new Intent().setClass(
-                        Launcher.this, MainActivity.class);
+                Intent mainIntent = null;
+                if (mIsFirstTime) {
+                    mainIntent = new Intent().setClass(
+                            Launcher.this, FirstTimeActivity.class);
+                } else {
+                    mainIntent = new Intent().setClass(
+                            Launcher.this, MainActivity.class);
+                }
                 startActivity(mainIntent);
                 finish();
             }

@@ -23,7 +23,7 @@ import fittree.skyborn.com.gogo.R;
  * Created by Sandy on 8/27/2017.
  */
 
-public class TRLogin extends Fragment implements View.OnClickListener {
+public class GGLogin extends Fragment implements View.OnClickListener {
     EditText mEditEmail,mEditPassword;
     LoginButton mBtnFacebook;
     Button mBtnSign,mBtnLogin;

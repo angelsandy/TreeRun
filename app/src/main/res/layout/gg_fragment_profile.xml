@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/colorWhiteBackground"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
@@ -22,10 +23,10 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:srcCompat="@mipmap/ic_launcher"
         app:layout_constraintTop_toTopOf="@+id/guideline"
-        android:layout_marginTop="8dp" />
+        app:srcCompat="@mipmap/ic_launcher" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -95,7 +96,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="18dp"
         android:text="TextView"
-        android:textColor="@color/cardview_dark_background"
+        android:textColor="@color/colorStrongGray"
         android:textSize="16sp"
         app:layout_constraintLeft_toRightOf="@+id/textView9"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
@@ -107,7 +108,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:text="TextView"
-        android:textColor="@color/cardview_dark_background"
+        android:textColor="@color/colorStrongGray"
         android:textSize="16sp"
         app:layout_constraintLeft_toRightOf="@+id/textView8"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
@@ -119,7 +120,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="24dp"
         android:text="TextView"
-        android:textColor="@color/cardview_dark_background"
+        android:textColor="@color/colorStrongGray"
         android:textSize="16sp"
         app:layout_constraintLeft_toRightOf="@+id/textView10"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -133,6 +134,7 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
         app:layout_constraintTop_toTopOf="@+id/guideline2"
-        tools:layout_editor_absoluteX="16dp" />
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

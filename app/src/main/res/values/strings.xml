@@ -16,4 +16,5 @@
     <string name="titulo_nivel" translatable="true">Nivel</string>
     <string name="titulo_insignias" translatable="true">Insignias</string>
     <string name="titulo_no_olvidar" translatable="true">No puedo olvidar</string>
+    <string name="arrastra" translatable="true">Arrastra los objetos que no deben faltar en tu mochila,maletín o bolsa</string>
 </resources>
