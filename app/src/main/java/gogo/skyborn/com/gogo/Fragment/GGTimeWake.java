@@ -22,7 +22,6 @@ public class GGTimeWake extends Fragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
     }
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.gg_fragment_timewake, container, false);

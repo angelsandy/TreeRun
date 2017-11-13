@@ -12,6 +12,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import fittree.skyborn.com.gogo.R;
+import gogo.skyborn.com.gogo.Utils.GGSqlInfo;
 
 public class Launcher extends Activity {
     private static long SPLASH_SCREEN_DELAY = 3000;
@@ -37,11 +38,9 @@ public class Launcher extends Activity {
             public void run() {
                 Intent mainIntent = null;
                 if (mIsFirstTime) {
-                    mainIntent = new Intent().setClass(
-                            Launcher.this, FirstTimeActivity.class);
+                    mainIntent = new Intent().setClass(Launcher.this, FirstTimeActivity.class);
                 } else {
-                    mainIntent = new Intent().setClass(
-                            Launcher.this, MainActivity.class);
+                    mainIntent = new Intent().setClass(Launcher.this, MainActivity.class);
                 }
                 startActivity(mainIntent);
                 finish();
