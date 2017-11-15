@@ -4,6 +4,8 @@ package gogo.skyborn.com.gogo.Models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import gogo.skyborn.com.gogo.Interfaces.GGOnDownloadListener;
 import gogo.skyborn.com.gogo.Utils.GGDownload;
 
@@ -62,8 +64,8 @@ public class GGBoard {
                 public void onDownloadError() {
                     updateBoardListener.onBoardFail();
                 }
-            },mUrl);
-            ggDownload.execute();
+            });
+            ggDownload.execute(mUrl);
         }
     }
 

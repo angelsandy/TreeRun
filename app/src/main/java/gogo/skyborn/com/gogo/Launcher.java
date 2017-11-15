@@ -37,11 +37,12 @@ public class Launcher extends Activity {
             @Override
             public void run() {
                 Intent mainIntent = null;
-                if (mIsFirstTime) {
+               /* if (mIsFirstTime) {
                     mainIntent = new Intent().setClass(Launcher.this, FirstTimeActivity.class);
-                } else {
-                    mainIntent = new Intent().setClass(Launcher.this, MainActivity.class);
-                }
+                } else {*/
+                 mainIntent = new Intent().setClass(Launcher.this, FirstTimeActivity.class);
+                   // mainIntent = new Intent().setClass(Launcher.this, MainActivity.class);
+               // }
                 startActivity(mainIntent);
                 finish();
             }

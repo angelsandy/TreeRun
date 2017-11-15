@@ -17,9 +17,8 @@ public class GGDownload extends AsyncTask<String, String, String> {
     private GGOnDownloadListener mGgOnDownload;
     private String mUrl;
 
-    public GGDownload(GGOnDownloadListener mGgOnDownload,String mUrl){
+    public GGDownload(GGOnDownloadListener mGgOnDownload){
         this.mGgOnDownload = mGgOnDownload;
-        this.mUrl = mUrl;
     }
 
     @Override
@@ -32,13 +31,14 @@ public class GGDownload extends AsyncTask<String, String, String> {
         String response = null;
         HttpURLConnection httpURLConnection = null;
         try {
-            URL url = new URL(this.mUrl);
+            URL url = new URL(strings[0]);
             try {
                 httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setDoOutput(true);
                 httpURLConnection.setReadTimeout(5000);
                 httpURLConnection.setConnectTimeout(5000);
-                httpURLConnection.setRequestProperty("Accept-Charset", "application/x-www-form-urlencoded; charset=utf-8");
+                httpURLConnection.setUseCaches(false);
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setRequestProperty("Accept-Charset","application/x-www-form-urlencoded; charset=utf-8");
                 httpURLConnection.setRequestProperty("Content-Type", "text/plain; charset=utf-8");
                 if(httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                     InputStream inputStream = new BufferedInputStream(httpURLConnection.getInputStream());

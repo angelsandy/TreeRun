@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import gogo.skyborn.com.gogo.Fragment.GGLogin;
 import gogo.skyborn.com.gogo.Fragment.GGNoDisponible;
 import gogo.skyborn.com.gogo.Fragment.GGRegister;
-import gogo.skyborn.com.gogo.Fragment.GGRoutine;
+import gogo.skyborn.com.gogo.Fragment.GGRoutineMorning;
 import gogo.skyborn.com.gogo.Fragment.GGTimeWake;
 import gogo.skyborn.com.gogo.Interfaces.GGOnChangeFragmentListener;
 
@@ -33,9 +33,10 @@ public class GGPagerSlider extends FragmentStatePagerAdapter {
                 break;
             case 1:
                 fragment = new GGTimeWake();
+                ((GGTimeWake)fragment).setmOnChange(mOnChangeFragmentListener);
                 break;
             case 2:
-                fragment = new GGRoutine();
+                fragment = new GGRoutineMorning();
                 break;
             case 3:
                 fragment = new GGRegister();

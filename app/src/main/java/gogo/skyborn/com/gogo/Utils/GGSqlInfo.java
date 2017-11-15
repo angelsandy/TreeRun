@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import gogo.skyborn.com.gogo.Models.GGRoutine;
 import gogo.skyborn.com.gogo.Models.GGUser;
 
 /**
@@ -21,6 +22,8 @@ public class GGSqlInfo extends SQLiteOpenHelper {
     public static final String TABLE_USER_COLUMN_ID = "userId";
     public static final String TABLE_BAG_COLUMN_ID = "bagId";
     public static final String TABLE_ROUTINE_COLUMN_ID = "bagId";
+    public static final String TABLE_ROUTINE_COLUMN_BACKGROUND = "routineBackground";
+    public static final String TABLE_ROUTINE_COLUMN_ICON = "routineIcon";
     public static final String TABLE_TIMEWAKE_COLUMN_ID = "bagId";
     public static final String TABLE_USER_COLUMN_FIRSTNAME = "firstName";
     public static final String TABLE_TIMEWAKE_COLUMN_TIME = "time";
@@ -45,6 +48,14 @@ public class GGSqlInfo extends SQLiteOpenHelper {
         }
     }
 
+    public void addTime(String time){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(TABLE_TIMEWAKE_COLUMN_TIME, time);
+        db.insert(TABLE_TIMEWAKE_NAME, null, values);
+        db.close();
+    }
+
     public void addUser(GGUser user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -52,6 +63,16 @@ public class GGSqlInfo extends SQLiteOpenHelper {
         values.put(TABLE_USER_COLUMN_EMAIL, user.getmEmail());
         values.put(TABLE_USER_COLUMN_PASSWORD, user.getmPassword());
         db.insert(TABLE_USER_NAME, null, values);
+        db.close();
+    }
+
+    public void addRoutine(GGRoutine routine) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(TABLE_ROUTINE_COLUMN_ID, routine.getmId());
+        values.put(TABLE_ROUTINE_NAME, routine.getmRoutineName());
+        values.put(TABLE_ROUTINE_COLUMN_ICON, String.valueOf(routine.getmIconType()));
+        db.insert(TABLE_ROUTINE_NAME, null, values);
         db.close();
     }
 

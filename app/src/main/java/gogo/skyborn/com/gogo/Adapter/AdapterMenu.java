@@ -1,4 +1,4 @@
-package gogo.skyborn.com.gogo;
+package gogo.skyborn.com.gogo.Adapter;
 
 import android.content.Context;
 import android.view.View;

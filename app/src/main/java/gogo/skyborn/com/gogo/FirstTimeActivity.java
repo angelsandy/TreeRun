@@ -1,5 +1,6 @@
 package gogo.skyborn.com.gogo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -15,7 +16,7 @@ import gogo.skyborn.com.gogo.Interfaces.GGOnChangeFragmentListener;
 import gogo.skyborn.com.gogo.Interfaces.GGOnPageComplete;
 import gogo.skyborn.com.gogo.Utils.GGPagerSlider;
 
-public class FirstTimeActivity extends AppCompatActivity  implements GGOnPageComplete,View.OnClickListener,GGOnChangeFragmentListener,ViewPager.OnPageChangeListener{
+public class FirstTimeActivity extends AppCompatActivity implements GGOnPageComplete, View.OnClickListener, GGOnChangeFragmentListener, ViewPager.OnPageChangeListener {
     private ViewPager mViewPager;
     private PagerAdapter mPagerAdapter;
     private TextView mNext, mBefore;
@@ -27,31 +28,36 @@ public class FirstTimeActivity extends AppCompatActivity  implements GGOnPageCom
         FacebookSdk.sdkInitialize(getApplicationContext());
         mNext = (TextView) findViewById(R.id.txt_final);
         mBefore = (TextView) findViewById(R.id.txt_back);
+        mBefore.setVisibility(View.GONE);
         mNext.setOnClickListener(this);
         mBefore.setOnClickListener(this);
-        mViewPager = (ViewPager)findViewById(R.id.pager_firstTime);
-        mPagerAdapter = new GGPagerSlider(getSupportFragmentManager(),this);
+        mViewPager = (ViewPager) findViewById(R.id.pager_firstTime);
+        mPagerAdapter = new GGPagerSlider(getSupportFragmentManager(), this);
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.addOnPageChangeListener(this);
     }
 
     @Override
     public void pageComplete() {
-
     }
 
     @Override
     public void onClick(View view) {
-
+        if(view == mNext) {
+            Intent intent = new Intent(view.getContext(),MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
     public void changeFragment(GGBase fragment, String id) {
-        if(mViewPager != null) {
+        if (mViewPager != null) {
             if (id.equals("register")) {
                 mViewPager.setCurrentItem(3);
             } else if (id.equals("timeWake")) {
                 mViewPager.setCurrentItem(1);
+            } else if (id.equals("routine")) {
+                mViewPager.setCurrentItem(2);
             }
         }
     }
@@ -63,7 +69,16 @@ public class FirstTimeActivity extends AppCompatActivity  implements GGOnPageCom
 
     @Override
     public void onPageSelected(int position) {
-
+        if(position > 0) {
+            mBefore.setVisibility(View.VISIBLE);
+        }else{
+            mBefore.setVisibility(View.GONE);
+        }
+        if(mViewPager.getAdapter().getCount() == position){
+            mNext.setText("Finalizar");
+        } else{
+            mNext.setText("Siguiente");
+        }
     }
 
     @Override

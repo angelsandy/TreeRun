@@ -1,7 +1,6 @@
 package gogo.skyborn.com.gogo;
 
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -23,6 +22,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import fittree.skyborn.com.gogo.R;
+import gogo.skyborn.com.gogo.Adapter.AdapterMenu;
 import gogo.skyborn.com.gogo.DataManager.GGCollectionManager;
 import gogo.skyborn.com.gogo.Enums.GGBoardType;
 import gogo.skyborn.com.gogo.Fragment.GGBase;
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements GGOnDownloadListe
         if(menu.getmBoardType() == GGBoardType.GGCountDown) {
             changeFragment(new GGCountDown(),menu.getmIdentifier());
         } else {
-            GGCollectionManager.findCollectionWithUrl(menu.getmUrl(), new GGOnDownloadResponse() {
+            GGCollectionManager.findCollectionWithUrl(((GGMenu)menuItem).getmIdentifier(),menu.getmUrl(), new GGOnDownloadResponse() {
                 @Override
                 public void onDownloadResponse(Object object) {
                     GGBase fragment = null;

@@ -29,8 +29,8 @@ public class GGMenu {
     }
 
     public static void getMenuDownload(GGOnDownloadListener mOnDownloadListener) {
-        GGDownload ggDownload = new GGDownload(mOnDownloadListener, URL);
-        ggDownload.execute();
+        GGDownload ggDownload = new GGDownload(mOnDownloadListener);
+        ggDownload.execute(URL);
     }
 
     public GGBoardType getmBoardType() {
