@@ -18,7 +18,7 @@ import gogo.skyborn.com.gogo.Interfaces.GGOnChangeFragmentListener;
 public class GGPagerSlider extends FragmentStatePagerAdapter {
     private GGOnChangeFragmentListener mOnChangeFragmentListener;
 
-    public GGPagerSlider(FragmentManager fm,GGOnChangeFragmentListener mOnChangeFragmentListener) {
+    public GGPagerSlider(FragmentManager fm, GGOnChangeFragmentListener mOnChangeFragmentListener) {
         super(fm);
         this.mOnChangeFragmentListener = mOnChangeFragmentListener;
     }
@@ -27,20 +27,21 @@ public class GGPagerSlider extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         Fragment fragment = null;
         switch (position) {
-            case 0:
-                fragment = new GGLogin();
+              /*  fragment = new GGLogin();
                 ((GGLogin)fragment).setmOnChange(mOnChangeFragmentListener);
+                break;*/
+            case 0:
+                fragment = new GGRegister();
+                ((GGRegister) fragment).setmOnChangePage(mOnChangeFragmentListener);
                 break;
+
             case 1:
                 fragment = new GGTimeWake();
-                ((GGTimeWake)fragment).setmOnChange(mOnChangeFragmentListener);
+                ((GGTimeWake) fragment).setmOnChange(mOnChangeFragmentListener);
                 break;
+
             case 2:
                 fragment = new GGRoutineMorning();
-                break;
-            case 3:
-                fragment = new GGRegister();
-                ((GGRegister)fragment).setmOnChangePage(mOnChangeFragmentListener);
                 break;
             default:
                 fragment = new GGNoDisponible();
@@ -51,6 +52,6 @@ public class GGPagerSlider extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return 3;
     }
 }

@@ -2,6 +2,7 @@ package gogo.skyborn.com.gogo.Utils;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -48,7 +49,7 @@ public class GGSqlInfo extends SQLiteOpenHelper {
         }
     }
 
-    public void addTime(String time){
+    public void addTime(String time) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(TABLE_TIMEWAKE_COLUMN_TIME, time);
@@ -74,6 +75,23 @@ public class GGSqlInfo extends SQLiteOpenHelper {
         values.put(TABLE_ROUTINE_COLUMN_ICON, String.valueOf(routine.getmIconType()));
         db.insert(TABLE_ROUTINE_NAME, null, values);
         db.close();
+    }
+
+    public boolean findUser(String email,String password) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        String selectQuery = "SELECT " + TABLE_USER_COLUMN_PASSWORD + " FROM " + TABLE_USER_NAME + " WHERE " + TABLE_USER_COLUMN_EMAIL + "='" + email + "'";
+        String pass = null;
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            pass = c.getString(0);
+        }
+        c.close();
+        db.close();
+        if(pass != null && pass.equals(password)){
+            return true;
+        }
+        return false;
     }
 
     @Override

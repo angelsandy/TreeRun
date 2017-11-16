@@ -2,87 +2,41 @@ package gogo.skyborn.com.gogo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
 
 import fittree.skyborn.com.gogo.R;
 import gogo.skyborn.com.gogo.Fragment.GGBase;
+import gogo.skyborn.com.gogo.Fragment.GGLogin;
 import gogo.skyborn.com.gogo.Interfaces.GGOnChangeFragmentListener;
 import gogo.skyborn.com.gogo.Interfaces.GGOnPageComplete;
 import gogo.skyborn.com.gogo.Utils.GGPagerSlider;
 
-public class FirstTimeActivity extends AppCompatActivity implements GGOnPageComplete, View.OnClickListener, GGOnChangeFragmentListener, ViewPager.OnPageChangeListener {
-    private ViewPager mViewPager;
-    private PagerAdapter mPagerAdapter;
-    private TextView mNext, mBefore;
+public class FirstTimeActivity extends AppCompatActivity implements GGOnChangeFragmentListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.gg_pager_firsttime);
+        setContentView(R.layout.gg_activity_firsttime);
         FacebookSdk.sdkInitialize(getApplicationContext());
-        mNext = (TextView) findViewById(R.id.txt_final);
-        mBefore = (TextView) findViewById(R.id.txt_back);
-        mBefore.setVisibility(View.GONE);
-        mNext.setOnClickListener(this);
-        mBefore.setOnClickListener(this);
-        mViewPager = (ViewPager) findViewById(R.id.pager_firstTime);
-        mPagerAdapter = new GGPagerSlider(getSupportFragmentManager(), this);
-        mViewPager.setAdapter(mPagerAdapter);
-        mViewPager.addOnPageChangeListener(this);
-    }
+        GGBase ggBase = new GGLogin();
+        ((GGLogin) ggBase).setmOnChange(this);
+        changeFragment(ggBase, "login");
 
-    @Override
-    public void pageComplete() {
-    }
-
-    @Override
-    public void onClick(View view) {
-        if(view == mNext) {
-            Intent intent = new Intent(view.getContext(),MainActivity.class);
-            startActivity(intent);
-        }
     }
 
     @Override
     public void changeFragment(GGBase fragment, String id) {
-        if (mViewPager != null) {
-            if (id.equals("register")) {
-                mViewPager.setCurrentItem(3);
-            } else if (id.equals("timeWake")) {
-                mViewPager.setCurrentItem(1);
-            } else if (id.equals("routine")) {
-                mViewPager.setCurrentItem(2);
-            }
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container_fragment, fragment, id).addToBackStack(null).commit();
         }
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        if(position > 0) {
-            mBefore.setVisibility(View.VISIBLE);
-        }else{
-            mBefore.setVisibility(View.GONE);
-        }
-        if(mViewPager.getAdapter().getCount() == position){
-            mNext.setText("Finalizar");
-        } else{
-            mNext.setText("Siguiente");
-        }
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
     }
 }

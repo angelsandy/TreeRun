@@ -1,5 +1,6 @@
 package gogo.skyborn.com.gogo.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -19,6 +21,8 @@ import com.facebook.login.widget.LoginButton;
 
 import fittree.skyborn.com.gogo.R;
 import gogo.skyborn.com.gogo.Interfaces.GGOnChangeFragmentListener;
+import gogo.skyborn.com.gogo.MainActivity;
+import gogo.skyborn.com.gogo.Utils.GGSqlInfo;
 
 
 /**
@@ -73,10 +77,21 @@ public class GGLogin extends GGBase implements View.OnClickListener {
                 });
             }
         } else if (view == mBtnLogin) {
-
+            if(mEditEmail.getText().toString() == null || mEditEmail.getText().toString().isEmpty() || mEditPassword.getText().toString() == null || mEditPassword.getText().toString().isEmpty()) {
+                Toast.makeText(getContext(),"Falta correo/contraseña",Toast.LENGTH_LONG).show();
+            }else{
+                GGSqlInfo ggSqlInfo = new GGSqlInfo(getContext());
+                boolean isPassword = ggSqlInfo.findUser(mEditEmail.getText().toString(),mEditPassword.getText().toString());
+                if(isPassword) {
+                    Intent i = new Intent(getContext(), MainActivity.class);
+                    startActivity(i);
+                }else{
+                    Toast.makeText(getContext(),"Correo/contraseña incorrecto",Toast.LENGTH_LONG).show();
+                }
+            }
         } else if (view == mBtnSign) {
             if(mOnChange != null) {
-                mOnChange.changeFragment(null,"register");
+                mOnChange.changeFragment(new GGPagerFirstTime(),"pagerRegister");
             }
         }
     }
