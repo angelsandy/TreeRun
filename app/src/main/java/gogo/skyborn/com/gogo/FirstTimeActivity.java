@@ -20,7 +20,6 @@ import gogo.skyborn.com.gogo.Interfaces.GGOnPageComplete;
 import gogo.skyborn.com.gogo.Utils.GGPagerSlider;
 
 public class FirstTimeActivity extends AppCompatActivity implements GGOnChangeFragmentListener {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +28,6 @@ public class FirstTimeActivity extends AppCompatActivity implements GGOnChangeFr
         GGBase ggBase = new GGLogin();
         ((GGLogin) ggBase).setmOnChange(this);
         changeFragment(ggBase, "login");
-
     }
 
     @Override

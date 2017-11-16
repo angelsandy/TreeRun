@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import gogo.skyborn.com.gogo.Models.GGRoutine;
 import gogo.skyborn.com.gogo.Models.GGUser;
@@ -25,6 +26,7 @@ public class GGSqlInfo extends SQLiteOpenHelper {
     public static final String TABLE_ROUTINE_COLUMN_ID = "bagId";
     public static final String TABLE_ROUTINE_COLUMN_BACKGROUND = "routineBackground";
     public static final String TABLE_ROUTINE_COLUMN_ICON = "routineIcon";
+    public static final String TABLE_ROUTINE_COLUMN_NAMEROUTINE = "routineName";
     public static final String TABLE_TIMEWAKE_COLUMN_ID = "bagId";
     public static final String TABLE_USER_COLUMN_FIRSTNAME = "firstName";
     public static final String TABLE_TIMEWAKE_COLUMN_TIME = "time";
@@ -45,7 +47,7 @@ public class GGSqlInfo extends SQLiteOpenHelper {
                     + TABLE_USER_COLUMN_EMAIL + " TEXT DEFAULT '', " + TABLE_USER_COLUMN_PICTUREWEB + " TEXT," + TABLE_USER_COLUMN_PASSWORD + " TEXT NOT NULL);");
             sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_BAG_NAME + " (" + TABLE_BAG_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TABLE_BAG_COLUMN_ITEMNAME + " TEXT NOT NULL);");
             sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_TIMEWAKE_NAME + " (" + TABLE_TIMEWAKE_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TABLE_TIMEWAKE_COLUMN_TIME + " TEXT NOT NULL);");
-            sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_ROUTINE_NAME + " (" + TABLE_ROUTINE_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TABLE_ROUTINE_COLUMN_ROUTINEITEM + " TEXT NOT NULL);");
+            sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_ROUTINE_NAME + " (" + TABLE_ROUTINE_COLUMN_ID + " TEXT, " + TABLE_ROUTINE_COLUMN_NAMEROUTINE + " TEXT," + TABLE_ROUTINE_COLUMN_ICON + " TEXT );");
         }
     }
 
@@ -71,15 +73,26 @@ public class GGSqlInfo extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(TABLE_ROUTINE_COLUMN_ID, routine.getmId());
-        values.put(TABLE_ROUTINE_NAME, routine.getmRoutineName());
+        values.put(TABLE_ROUTINE_COLUMN_NAMEROUTINE, routine.getmRoutineName());
         values.put(TABLE_ROUTINE_COLUMN_ICON, String.valueOf(routine.getmIconType()));
         db.insert(TABLE_ROUTINE_NAME, null, values);
+        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_ROUTINE_NAME+"",null);
+        if (c.moveToFirst()) {
+            Log.e("Imprimir--->",c.getString(0));
+        }
         db.close();
     }
 
-    public boolean findUser(String email,String password) {
+    public boolean deleteRoutine(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
+        boolean delete;
+        delete = db.delete(TABLE_ROUTINE_NAME, TABLE_ROUTINE_COLUMN_ID + "=?", new String[]{id}) > 0;
+        db.close();
+        return delete;
+    }
+
+    public boolean checkPassword(String email, String password) {
+        SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT " + TABLE_USER_COLUMN_PASSWORD + " FROM " + TABLE_USER_NAME + " WHERE " + TABLE_USER_COLUMN_EMAIL + "='" + email + "'";
         String pass = null;
         Cursor c = db.rawQuery(selectQuery, null);
@@ -92,6 +105,21 @@ public class GGSqlInfo extends SQLiteOpenHelper {
             return true;
         }
         return false;
+    }
+
+    public GGUser findUser(String email) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT " + TABLE_USER_COLUMN_FIRSTNAME+ ", "+ TABLE_USER_COLUMN_EMAIL + ", " +TABLE_USER_COLUMN_PICTUREWEB + " FROM " + TABLE_USER_NAME + " WHERE " + TABLE_USER_COLUMN_EMAIL + "='" + email + "'";
+        GGUser user = new GGUser();
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            user.setmName(c.getString(0));
+            user.setmEmail(c.getString(1));
+            user.setmPhoto(c.getString(2));
+        }
+        c.close();
+        db.close();
+        return user;
     }
 
     @Override

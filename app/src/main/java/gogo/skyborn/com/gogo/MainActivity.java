@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
 
@@ -33,6 +34,7 @@ import gogo.skyborn.com.gogo.Interfaces.GGOnDownloadListener;
 import gogo.skyborn.com.gogo.Interfaces.GGOnDownloadResponse;
 import gogo.skyborn.com.gogo.Interfaces.GGOnSelectedMenuItem;
 import gogo.skyborn.com.gogo.Models.GGMenu;
+import gogo.skyborn.com.gogo.Models.GGUser;
 
 
 public class MainActivity extends AppCompatActivity implements GGOnDownloadListener,AdapterView.OnItemClickListener,GGOnSelectedMenuItem,GGOnChangeFragmentListener {
@@ -48,11 +50,22 @@ public class MainActivity extends AppCompatActivity implements GGOnDownloadListe
         setSupportActionBar(toolbar);
         GGMenu.getMenuDownload(this);
         mListMenu = (ListView) findViewById(R.id.listViewMenu);
+        TextView username = (TextView)findViewById(R.id.username);
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, 0, 0);
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
+        GGUser user;
+        if(savedInstanceState == null) {
+            Bundle bundle = getIntent().getExtras();
+            if(bundle != null) {
+                user = bundle.getParcelable("user");
+                if(username != null) {
+                    username.setText(user.getmName());
+                }
+            }
+        }
     }
 
     @Override

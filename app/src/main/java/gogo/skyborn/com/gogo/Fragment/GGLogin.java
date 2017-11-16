@@ -2,14 +2,12 @@ package gogo.skyborn.com.gogo.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -22,6 +20,7 @@ import com.facebook.login.widget.LoginButton;
 import fittree.skyborn.com.gogo.R;
 import gogo.skyborn.com.gogo.Interfaces.GGOnChangeFragmentListener;
 import gogo.skyborn.com.gogo.MainActivity;
+import gogo.skyborn.com.gogo.Models.GGUser;
 import gogo.skyborn.com.gogo.Utils.GGSqlInfo;
 
 
@@ -81,9 +80,11 @@ public class GGLogin extends GGBase implements View.OnClickListener {
                 Toast.makeText(getContext(),"Falta correo/contraseña",Toast.LENGTH_LONG).show();
             }else{
                 GGSqlInfo ggSqlInfo = new GGSqlInfo(getContext());
-                boolean isPassword = ggSqlInfo.findUser(mEditEmail.getText().toString(),mEditPassword.getText().toString());
+                boolean isPassword = ggSqlInfo.checkPassword(mEditEmail.getText().toString(),mEditPassword.getText().toString());
+                GGUser user = ggSqlInfo.findUser(mEditEmail.getText().toString());
                 if(isPassword) {
                     Intent i = new Intent(getContext(), MainActivity.class);
+                    i.putExtra("user",user);
                     startActivity(i);
                 }else{
                     Toast.makeText(getContext(),"Correo/contraseña incorrecto",Toast.LENGTH_LONG).show();

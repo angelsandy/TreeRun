@@ -1,6 +1,7 @@
 package gogo.skyborn.com.gogo.Fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -37,6 +38,13 @@ public class GGRoutineMorning extends GGBase implements GGOnDownloadResponse {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         GGCollectionManager.findCollectionWithUrl("SBRutina","http://192.168.0.82/Gogo/version1_1/rutina.php",this);
     }
 

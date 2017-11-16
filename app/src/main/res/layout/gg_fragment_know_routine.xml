@@ -20,6 +20,7 @@
         android:layout_marginRight="0dp"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
+        android:visibility="gone"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -59,12 +60,12 @@
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="170dp"
+        android:alpha="0.8"
         android:scaleType="centerCrop"
-        android:alpha="0.5"
-        app:srcCompat="@drawable/morning_banner"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp" />
+        app:srcCompat="@drawable/fondobanner"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <TextView
         android:id="@+id/txtRoutineTitle"
@@ -76,11 +77,13 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:elevation="8dp"
         android:text="@string/rutina_mañanera"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
+        android:typeface="normal"
         app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView5" />

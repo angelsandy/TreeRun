@@ -57,7 +57,7 @@ public class GGPagerFirstTime extends GGBase implements GGOnPageComplete, View.O
     @Override
     public void onClick(View view) {
         if(view == mNext) {
-            if(mCurrentPosition == mViewPager.getAdapter().getCount()) {
+            if(mCurrentPosition == mViewPager.getAdapter().getCount() - 1) {
                 Intent intent = new Intent(view.getContext(), MainActivity.class);
                 startActivity(intent);
             }else {
@@ -97,7 +97,7 @@ public class GGPagerFirstTime extends GGBase implements GGOnPageComplete, View.O
         }else{
             mBefore.setVisibility(View.GONE);
         }
-        if(mViewPager.getAdapter().getCount() == position){
+        if(mViewPager.getAdapter().getCount() == position + 1){
             mNext.setText("Finalizar");
         } else{
             mNext.setText("Siguiente");

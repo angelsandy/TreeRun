@@ -13,16 +13,16 @@ import gogo.skyborn.com.gogo.Utils.GGSqlInfo;
 
 public class GGRoutineHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private TextView mRoutineTitle;
-    private ImageView mRoutineIcon,mRoutineImage,mRoutineAdd,mRoutineDelete;
+    private ImageView mRoutineIcon, mRoutineImage, mRoutineAdd, mRoutineDelete;
     private GGRoutine ggRoutine;
 
     public GGRoutineHolder(View itemView) {
         super(itemView);
-        mRoutineTitle = (TextView)itemView.findViewById(R.id.txt_Routine);
-        mRoutineImage = (ImageView)itemView.findViewById(R.id.img_background);
-        mRoutineIcon = (ImageView)itemView.findViewById(R.id.img_icon);
-        mRoutineAdd = (ImageView)itemView.findViewById(R.id.btn_add);
-        mRoutineDelete = (ImageView)itemView.findViewById(R.id.btn_close);
+        mRoutineTitle = (TextView) itemView.findViewById(R.id.txt_Routine);
+        mRoutineImage = (ImageView) itemView.findViewById(R.id.img_background);
+        mRoutineIcon = (ImageView) itemView.findViewById(R.id.img_icon);
+        mRoutineAdd = (ImageView) itemView.findViewById(R.id.btn_add);
+        mRoutineDelete = (ImageView) itemView.findViewById(R.id.btn_close);
         mRoutineAdd.setOnClickListener(this);
         mRoutineDelete.setOnClickListener(this);
     }
@@ -36,24 +36,33 @@ public class GGRoutineHolder extends RecyclerView.ViewHolder implements View.OnC
             if (mRoutineIcon != null) {
                 int icon = 0;
                 switch (ggRoutine.getmIconType()) {
-                  /*  case GGBATHROOM:
+                    case GGBATHROOM:
+                        icon = R.drawable.bathtub_with_opened_shower;
                         break;
                     case GGBED:
+                        icon = R.drawable.sleeping_bed_silhouette;
                         break;
                     case GGCLOTHES:
+                        icon = R.drawable.casual_t_shirt_;
                         break;
                     case GGMAKEUP:
+                        icon = R.drawable.beauty_products;
                         break;
                     case GGPAGE:
+                        icon = R.drawable.menu;
                         break;
                     case GGPLATE:
+                        icon = R.drawable.plate_fork_and_knife;
                         break;
                     case GGRUN:
+                        icon = R.drawable.running;
                         break;
                     case GGTOOTHPASTE:
+                        icon = R.drawable.bathroom_toothpaste_tube;
                         break;
                     case GGYOGA:
-                        break;*/
+                        icon = R.drawable.buddhist_yoga_pose;
+                        break;
                     default:
                         icon = R.drawable.casual_t_shirt;
                         break;
@@ -74,24 +83,27 @@ public class GGRoutineHolder extends RecyclerView.ViewHolder implements View.OnC
                     case GGPERSONAL:
                         break;
                 }*/
-               // Picasso.with(mRoutineImage.getContext()).load(background).into(mRoutineImage);
+                Picasso.with(mRoutineImage.getContext()).load(R.drawable.background).into(mRoutineImage);
             }
         }
     }
 
     @Override
     public void onClick(View view) {
-        if(view == mRoutineAdd) {
-            if(ggRoutine != null) {
+        if (view == mRoutineAdd) {
+            if (ggRoutine != null) {
                 GGSqlInfo info = new GGSqlInfo(view.getContext());
                 info.addRoutine(ggRoutine);
                 mRoutineDelete.setVisibility(View.VISIBLE);
                 mRoutineAdd.setVisibility(View.GONE);
             }
         }
-        if(view  == mRoutineDelete){
-            mRoutineAdd.setVisibility(View.VISIBLE);
-            mRoutineDelete.setVisibility(View.GONE);
+        if (view == mRoutineDelete) {
+            GGSqlInfo info = new GGSqlInfo(view.getContext());
+            if(info.deleteRoutine(ggRoutine.getmId())) {
+                mRoutineAdd.setVisibility(View.VISIBLE);
+                mRoutineDelete.setVisibility(View.GONE);
+            }
         }
     }
 }
