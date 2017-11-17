@@ -45,7 +45,7 @@ public class GGRoutineMorning extends GGBase implements GGOnDownloadResponse {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        GGCollectionManager.findCollectionWithUrl("SBRutina","http://192.168.0.82/Gogo/version1_1/rutina.php",this);
+     //   GGCollectionManager.findCollectionWithUrl("SBRutina","http://192.168.0.82/Gogo/version1_1/rutina.php",this);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

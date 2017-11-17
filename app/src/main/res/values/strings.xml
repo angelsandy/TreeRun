@@ -22,5 +22,6 @@
     <string name="titulo_anterior" translatable="true">Atras</string>
     <string name="titulo_finalizar" translatable="true">Finalizar</string>
     <string name="titulo_temperatura" translatable="true">Hoy tenemos una temperatura de:</string>
+    <string name="titulo_dia" translatable="true">¡Buen día!, a darle que es mole de olla</string>
     <string name="arrastra" translatable="true">Arrastra los objetos que no deben faltar en tu mochila,maletín o bolsa</string>
 </resources>

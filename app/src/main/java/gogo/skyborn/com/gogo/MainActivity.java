@@ -28,6 +28,7 @@ import gogo.skyborn.com.gogo.DataManager.GGCollectionManager;
 import gogo.skyborn.com.gogo.Enums.GGBoardType;
 import gogo.skyborn.com.gogo.Fragment.GGBase;
 import gogo.skyborn.com.gogo.Fragment.GGCountDown;
+import gogo.skyborn.com.gogo.Fragment.GGHello;
 import gogo.skyborn.com.gogo.Fragment.GGHome;
 import gogo.skyborn.com.gogo.Interfaces.GGOnChangeFragmentListener;
 import gogo.skyborn.com.gogo.Interfaces.GGOnDownloadListener;
@@ -50,22 +51,23 @@ public class MainActivity extends AppCompatActivity implements GGOnDownloadListe
         setSupportActionBar(toolbar);
         GGMenu.getMenuDownload(this);
         mListMenu = (ListView) findViewById(R.id.listViewMenu);
-        TextView username = (TextView)findViewById(R.id.username);
+        TextView username = (TextView) findViewById(R.id.username);
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, 0, 0);
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
         GGUser user;
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             Bundle bundle = getIntent().getExtras();
-            if(bundle != null) {
+            if (bundle != null) {
                 user = bundle.getParcelable("user");
-                if(username != null) {
+                if (username != null) {
                     username.setText(user.getmName());
                 }
             }
         }
+        changeFragment(new GGHome(), "home");
     }
 
     @Override
@@ -87,23 +89,22 @@ public class MainActivity extends AppCompatActivity implements GGOnDownloadListe
                     for (int i = 0; i < jsonArray.length(); i++) {
                         GGMenu menu = new GGMenu(jsonArray.optJSONObject(i));
                         mMenuList.add(menu);
-                        GGCollectionManager.setmCollection(menu.getmIdentifier(),menu);
+                        GGCollectionManager.setmCollection(menu.getmIdentifier(), menu);
                     }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            AdapterMenu adapterMenu = new AdapterMenu(mMenuList,this);
+            AdapterMenu adapterMenu = new AdapterMenu(mMenuList, this);
             mListMenu.setAdapter(adapterMenu);
-            changeFragment(new GGHome(),"home");
         }
     }
 
     @Override
-    public void changeFragment(GGBase fragment, String id){
+    public void changeFragment(GGBase fragment, String id) {
         fragment.setOnSelectedMenuItem(this);
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.framContainer,fragment,id).addToBackStack(null).commit();
+        fragmentManager.beginTransaction().replace(R.id.framContainer, fragment, id).addToBackStack(null).commit();
     }
 
     @Override
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements GGOnDownloadListe
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        if(view != null) {
+        if (view != null) {
             onSelectedMenuItem(view.getTag());
         }
     }
@@ -122,16 +123,18 @@ public class MainActivity extends AppCompatActivity implements GGOnDownloadListe
     public void onSelectedMenuItem(Object menuItem) {
         final GGMenu menu = (GGMenu) menuItem;
         final MainActivity mainActivity = this;
-        if(menu.getmBoardType() == GGBoardType.GGCountDown) {
-            changeFragment(new GGCountDown(),menu.getmIdentifier());
+        if (menu.getmBoardType() == GGBoardType.GGCountDown) {
+            changeFragment(new GGCountDown(), menu.getmIdentifier());
+        } else if (menu.getmBoardType() == GGBoardType.GGHome) {
+            changeFragment(new GGHello(), menu.getmIdentifier());
         } else {
-            GGCollectionManager.findCollectionWithUrl(((GGMenu)menuItem).getmIdentifier(),menu.getmUrl(), new GGOnDownloadResponse() {
+            GGCollectionManager.findCollectionWithUrl(((GGMenu) menuItem).getmIdentifier(), menu.getmUrl(), new GGOnDownloadResponse() {
                 @Override
                 public void onDownloadResponse(Object object) {
                     GGBase fragment = null;
                     switch (menu.getmBoardType()) {
                         case GGHome:
-                            fragment = new GGHome();
+                            fragment = new GGHello();
                             break;
                         case GGRoutine:
                             break;
