@@ -1,12 +1,17 @@
 package gogo.skyborn.com.gogo.Fragment;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -21,29 +26,43 @@ import gogo.skyborn.com.gogo.Models.GGMenu;
 public class GGHome extends GGBase implements View.OnClickListener {
     private TextView mHome;
     private Button mAgain;
-
+    private ImageView mSelfie;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.gg_fragment_home, container, false);
         mHome = (TextView) view.findViewById(R.id.btnHome);
         mAgain = (Button) view.findViewById(R.id.btnAgain);
+        mSelfie = (ImageView) view.findViewById(R.id.imgCamera);
+        mSelfie.setOnClickListener(this);
         mHome.setOnClickListener(this);
         mAgain.setOnClickListener(this);
         return view;
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 200) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            GGSelfie fragment = new GGSelfie();
+            fragment.setmSelfie(imageBitmap);
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.framContainer, fragment, "GGSelfie").addToBackStack("GGSelfie").commit();
+        }
+
+    }
+
+    @Override
     public void onClick(View view) {
+        if (view == mSelfie) {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                startActivityForResult(intent, 200);
+            }
+        }
         if (view == mHome) {
-             /* GGCollectionManager.findMenuWithId("SBHome", new GGOnDownloadResponse() {
-                @Override
-                public void onDownloadResponse(Object object) {
-                    if(onSelectedMenuItem != null) {
-                        onSelectedMenuItem.onSelectedMenuItem(object);
-                    }
-                }
-            });*/
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("identificador", "SBHome");

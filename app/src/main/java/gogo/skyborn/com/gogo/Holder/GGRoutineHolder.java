@@ -11,10 +11,9 @@ import fittree.skyborn.com.gogo.R;
 import gogo.skyborn.com.gogo.Models.GGRoutine;
 import gogo.skyborn.com.gogo.Utils.GGSqlInfo;
 
-public class GGRoutineHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class GGRoutineHolder extends GGStandardHolder implements View.OnClickListener {
     private TextView mRoutineTitle;
     private ImageView mRoutineIcon, mRoutineImage, mRoutineAdd, mRoutineDelete;
-    private GGRoutine ggRoutine;
 
     public GGRoutineHolder(View itemView) {
         super(itemView);
@@ -27,15 +26,16 @@ public class GGRoutineHolder extends RecyclerView.ViewHolder implements View.OnC
         mRoutineDelete.setOnClickListener(this);
     }
 
-    public void setInfo(GGRoutine ggRoutine) {
+    @Override
+    public void setInfo(Object ggRoutine) {
         if (ggRoutine != null) {
-            this.ggRoutine = ggRoutine;
+            this.ggRoutine = (GGRoutine) ggRoutine;
             if (mRoutineTitle != null) {
-                mRoutineTitle.setText(ggRoutine.getmRoutineName());
+                mRoutineTitle.setText(((GGRoutine)ggRoutine).getmRoutineName());
             }
             if (mRoutineIcon != null) {
                 int icon = 0;
-                switch (ggRoutine.getmIconType()) {
+                switch (((GGRoutine)ggRoutine).getmIconType()) {
                     case GGBATHROOM:
                         icon = R.drawable.bathtub_with_opened_shower;
                         break;
@@ -93,14 +93,14 @@ public class GGRoutineHolder extends RecyclerView.ViewHolder implements View.OnC
         if (view == mRoutineAdd) {
             if (ggRoutine != null) {
                 GGSqlInfo info = new GGSqlInfo(view.getContext());
-                info.addRoutine(ggRoutine);
+                info.addRoutine((GGRoutine) ggRoutine);
                 mRoutineDelete.setVisibility(View.VISIBLE);
                 mRoutineAdd.setVisibility(View.GONE);
             }
         }
         if (view == mRoutineDelete) {
             GGSqlInfo info = new GGSqlInfo(view.getContext());
-            if(info.deleteRoutine(ggRoutine.getmId())) {
+            if(info.deleteRoutine(((GGRoutine)ggRoutine).getmId())) {
                 mRoutineAdd.setVisibility(View.VISIBLE);
                 mRoutineDelete.setVisibility(View.GONE);
             }

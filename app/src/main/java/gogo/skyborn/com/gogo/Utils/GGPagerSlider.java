@@ -27,9 +27,6 @@ public class GGPagerSlider extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         Fragment fragment = null;
         switch (position) {
-              /*  fragment = new GGLogin();
-                ((GGLogin)fragment).setmOnChange(mOnChangeFragmentListener);
-                break;*/
             case 0:
                 fragment = new GGRegister();
                 ((GGRegister) fragment).setmOnChangePage(mOnChangeFragmentListener);

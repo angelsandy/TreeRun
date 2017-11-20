@@ -12,30 +12,87 @@
 
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgPhoto" />
+
+    <TextView
+        android:id="@+id/txtContent"
+        android:layout_width="0dp"
+        android:layout_height="21dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="7dp"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtautor" />
+
+    <TextView
+        android:id="@+id/txtautor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageView9"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitle"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_marginStart="8dp" />
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/imgPhoto"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/arbol_login"
-        tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="0dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="?attr/actionModeShareDrawable"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Debes poner atención en los niveles de energía que tienes y por ende si hace falta, en este sentido, ayudar a tu cuerpo.   Sacude, sacude  ADVERTISING inRead invented by Teads     Georgina Montemayor, académica de la Facultad de Medicina de la Universidad Nacional Autónoma de México (UNAM), recomienda tomar nota sobre los siguientes consejos con el fin de fortalecer la salud física e incluso del cerebro, para favorecer los niveles de energía.     Si por alguna razón –exceso de trabajo o falta de tiempo- dejas de comer por varias horas, la actividad cerebral se puede ver afectada, así como la capacidad de respuesta intelectual, por lo que hay que evitar largos periodos de privación del alimento o líquido (no más de 3 horas).     Incluye en la dieta alimentos que contienen Omegas 3, 6 y 9, los cuales se encuentran en las semillas de calabaza y chía.     Los arándanos, así como las frutas ricas en antioxidantes como las fresas, kiwis y uvas, son fuertes aliados para mantener en buenas condiciones la actividad cerebral.     Además, explica que el ejercicio aeróbico, así como disciplinas como el pilates o yoga son ideales para que el cerebro se active, ya que favorecen la oxigenación por medio de una adecuada respiración, así como meditar.     Subir las escaleras al puro estilo de Rocky Balboa puede ser más que estimulante, vencer un reto, lograr algo que pensamos que jamás haríamos también lo es; así que a sacudirte la flojera y aprovechar la oportunidad que tienes de asombrarte de ti mismo. "
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtContent" />
 
 </android.support.constraint.ConstraintLayout>
     </ScrollView>

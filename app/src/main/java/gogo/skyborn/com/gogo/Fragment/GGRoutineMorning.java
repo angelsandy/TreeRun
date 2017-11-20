@@ -30,10 +30,9 @@ import gogo.skyborn.com.gogo.Models.GGRoutine;
  */
 
 public class GGRoutineMorning extends GGBase implements GGOnDownloadResponse {
-    private RecyclerView mRoutineList;
     private EditText mNewItem;
     private AdapterRoutine mAdapter;
-    private ArrayList<GGRoutine> mRoutine;
+    private ArrayList<Object> mRoutine;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,12 +44,12 @@ public class GGRoutineMorning extends GGBase implements GGOnDownloadResponse {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-     //   GGCollectionManager.findCollectionWithUrl("SBRutina","http://192.168.0.82/Gogo/version1_1/rutina.php",this);
+        GGCollectionManager.findCollectionWithUrl("SBRutina","http://192.168.0.82/Gogo/version1_1/rutina.php",this);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.gg_fragment_know_routine, container,false);
-        mRoutineList = (RecyclerView)view.findViewById(R.id.recycler_routine);
+        mRecyclerThings = (RecyclerView)view.findViewById(R.id.recycler_routine);
         mNewItem = (EditText)view.findViewById(R.id.edit_search);
         return view;
     }
@@ -64,9 +63,9 @@ public class GGRoutineMorning extends GGBase implements GGOnDownloadResponse {
                 }
                 mRoutine = ((GGCollectionRoutine)object).getmList();
                 mAdapter = new AdapterRoutine(mRoutine);
-                if(mRoutineList != null) {
-                    mRoutineList.setLayoutManager(new LinearLayoutManager(mRoutineList.getContext()));
-                    mRoutineList.setAdapter(mAdapter);
+                if(mRecyclerThings != null) {
+                    mRecyclerThings.setLayoutManager(new LinearLayoutManager(mRecyclerThings.getContext()));
+                    mRecyclerThings.setAdapter(mAdapter);
                 }
             }
         }

@@ -2,7 +2,6 @@ package gogo.skyborn.com.gogo.Models;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -13,13 +12,13 @@ import gogo.skyborn.com.gogo.Utils.GGDownload;
  * Created by Sandy on 11/15/2017.
  */
 
-public class GGCollectionRoutine implements GGOnDownloadListener {
+public class GGCollectionOutfit implements GGOnDownloadListener {
     private ArrayList<Object>mList;
     private boolean valid;
     private String mUrl;
     private GGBoard.updateBoardListener updateBoardListener;
 
-    public GGCollectionRoutine(String url){
+    public GGCollectionOutfit(String url){
         this.mUrl = url;
     }
 
@@ -41,28 +40,33 @@ public class GGCollectionRoutine implements GGOnDownloadListener {
 
     @Override
     public void onDownloadSuccess(String o) {
-        JSONArray mJsonObject = null;
-        try {
-            mJsonObject = new JSONArray(o);
-            if(mList == null){
-                mList = new ArrayList<>();
-            }
-            if(mJsonObject != null) {
-                for(int i = 0; i < mJsonObject.length();i++) {
-                    try {
-                        mList.add(new GGRoutine(mJsonObject.getJSONObject(i)));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+        if(o != null) {
+            JSONArray mJsonObject = null;
+            try {
+                mJsonObject = new JSONArray(o);
+                if (mList == null) {
+                    mList = new ArrayList<>();
+                }
+                if (mJsonObject != null) {
+                    for (int i = 0; i < mJsonObject.length(); i++) {
+                        try {
+                            mList.add(new GGOutfit(mJsonObject.getJSONObject(i)));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
+            if (this.updateBoardListener != null) {
+                this.updateBoardListener.onBooardSuccess(this);
+            }
+        }else{
+            if (this.updateBoardListener != null) {
+                this.updateBoardListener.onBoardFail();
+            }
         }
-        if(this.updateBoardListener != null) {
-            this.updateBoardListener.onBooardSuccess(this);
-        }
-
      }
 
     @Override

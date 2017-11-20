@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.Locale;
 
 
-public class Function {
+public class GGFunction {
 
     // Project Created by Ferdousur Rahman Shajib
     // www.androstock.com
@@ -60,13 +60,8 @@ public class Function {
 
 
     public interface AsyncResponse {
-
         void processFinish(String output1, String output2, String output3, String output4, String output5, String output6, String output7, String output8);
     }
-
-
-
-
 
     public static class placeIdTask extends AsyncTask<String, Void, JSONObject> {
 
@@ -99,7 +94,8 @@ public class Function {
                     DateFormat df = DateFormat.getDateTimeInstance();
                     String city = json.getString("name").toUpperCase(Locale.US) + ", " + json.getJSONObject("sys").getString("country");
                     String description = details.getString("description").toUpperCase(Locale.US);
-                    String temperature = String.format("%.2f", main.getDouble("temp"))+ "°";
+                    int temp = (int) main.getDouble("temp");
+                    String temperature = String.valueOf(temp)+ "°";
                     String humidity = main.getString("humidity") + "%";
                     String pressure = main.getString("pressure") + " hPa";
                     String updatedOn = df.format(new Date(json.getLong("dt")*1000));

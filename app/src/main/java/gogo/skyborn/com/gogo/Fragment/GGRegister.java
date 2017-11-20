@@ -28,6 +28,7 @@ public class GGRegister extends GGBase implements View.OnClickListener {
     private Button mRegister;
     private EditText mEditEmail, mEditPassword, mEditPasswordRepeat, mEditUserName;
     private GGOnChangeFragmentListener mOnChangePage;
+    public static String mUserName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class GGRegister extends GGBase implements View.OnClickListener {
                             user.setmName(mEditUserName.getText().toString());
                             user.setmEmail(mEditEmail.getText().toString());
                             user.setmPassword(mEditPassword.getText().toString());
+                            mUserName = mEditUserName.getText().toString();
                         }
                         db.addUser(user);
                         if(mOnChangePage != null) {

@@ -3,6 +3,8 @@ package gogo.skyborn.com.gogo.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONObject;
+
 /**
  * Created by Sandy on 11/12/2017.
  */
@@ -15,6 +17,13 @@ public class GGUser implements Parcelable {
 
     public GGUser(){
 
+    }
+
+    public GGUser(JSONObject jsonObject){
+        if(jsonObject != null) {
+            this.mEmail = jsonObject.optString("email","");
+            this.mName = jsonObject.optString("name","");
+        }
     }
 
     protected GGUser(Parcel in) {

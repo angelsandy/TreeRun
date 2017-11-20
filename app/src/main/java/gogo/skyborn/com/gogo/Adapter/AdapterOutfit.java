@@ -7,18 +7,22 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import fittree.skyborn.com.gogo.R;
-import gogo.skyborn.com.gogo.Holder.GGRoutineHolder;
+import gogo.skyborn.com.gogo.Holder.GGOutfitHolder;
+import gogo.skyborn.com.gogo.Models.GGOutfit;
 import gogo.skyborn.com.gogo.Models.GGRoutine;
 
-public class AdapterRoutine extends BaseAdapterRecycler  {
+/**
+ * Created by Sandy on 11/17/2017.
+ */
 
-    public AdapterRoutine(ArrayList<Object> mRoutineList) {
+public class AdapterOutfit extends BaseAdapterRecycler {
+
+    public AdapterOutfit(ArrayList<Object> mRoutineList) {
         super(mRoutineList);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new GGRoutineHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.gg_item_routine,parent,false));
+        return new GGOutfitHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.gg_item_object_purse,parent,false));
     }
-
 }

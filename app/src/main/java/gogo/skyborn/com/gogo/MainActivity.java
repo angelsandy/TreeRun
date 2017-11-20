@@ -1,5 +1,6 @@
 package gogo.skyborn.com.gogo;
 
+import android.app.Notification;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -28,8 +29,11 @@ import gogo.skyborn.com.gogo.DataManager.GGCollectionManager;
 import gogo.skyborn.com.gogo.Enums.GGBoardType;
 import gogo.skyborn.com.gogo.Fragment.GGBase;
 import gogo.skyborn.com.gogo.Fragment.GGCountDown;
+import gogo.skyborn.com.gogo.Fragment.GGDetailNews;
 import gogo.skyborn.com.gogo.Fragment.GGHello;
 import gogo.skyborn.com.gogo.Fragment.GGHome;
+import gogo.skyborn.com.gogo.Fragment.GGNews;
+import gogo.skyborn.com.gogo.Fragment.GGOutfit;
 import gogo.skyborn.com.gogo.Interfaces.GGOnChangeFragmentListener;
 import gogo.skyborn.com.gogo.Interfaces.GGOnDownloadListener;
 import gogo.skyborn.com.gogo.Interfaces.GGOnDownloadResponse;
@@ -38,7 +42,7 @@ import gogo.skyborn.com.gogo.Models.GGMenu;
 import gogo.skyborn.com.gogo.Models.GGUser;
 
 
-public class MainActivity extends AppCompatActivity implements GGOnDownloadListener,AdapterView.OnItemClickListener,GGOnSelectedMenuItem,GGOnChangeFragmentListener {
+public class MainActivity extends AppCompatActivity implements GGOnDownloadListener, GGOnSelectedMenuItem, GGOnChangeFragmentListener {
     private ListView mListMenu;
     private ArrayList<GGMenu> mMenuList;
 
@@ -67,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements GGOnDownloadListe
                 }
             }
         }
+        getSupportActionBar().hide();
         changeFragment(new GGHome(), "home");
     }
 
@@ -95,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements GGOnDownloadListe
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            AdapterMenu adapterMenu = new AdapterMenu(mMenuList, this);
+            AdapterMenu adapterMenu = new AdapterMenu(mMenuList, this, this);
             mListMenu.setAdapter(adapterMenu);
         }
     }
@@ -104,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements GGOnDownloadListe
     public void changeFragment(GGBase fragment, String id) {
         fragment.setOnSelectedMenuItem(this);
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.framContainer, fragment, id).addToBackStack(null).commit();
+        fragmentManager.beginTransaction().replace(R.id.framContainer, fragment, id).addToBackStack(id).commit();
     }
 
     @Override
@@ -113,40 +118,56 @@ public class MainActivity extends AppCompatActivity implements GGOnDownloadListe
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        if (view != null) {
-            onSelectedMenuItem(view.getTag());
+    public void onSelectedMenuItem(final Object menuItem) {
+        getSupportActionBar().show();
+        if (menuItem instanceof GGMenu) {
+            final GGMenu menu = (GGMenu) menuItem;
+            if (getFragmentManager().getBackStackEntryCount() > 0) {
+                for (int i = 0; i < getFragmentManager().getBackStackEntryCount(); i++) {
+                    if (getFragmentManager().getBackStackEntryAt(i).getName().equals(menu.getmIdentifier())) {
+                        getFragmentManager().popBackStack();
+                    }
+                }
+            } else if (menu != null) {
+                if (menu.getmBoardType() == GGBoardType.GGCountDown) {
+                    changeFragment(new GGCountDown(), menu.getmIdentifier());
+                } else if (menu.getmBoardType() == GGBoardType.GGHome) {
+                    changeFragment(new GGHello(), menu.getmIdentifier());
+                } else {
+                    getCollections(menu);
+                }
+
+            }
+        } else if (menuItem instanceof gogo.skyborn.com.gogo.Models.GGNews) {
+            GGBase fragment = new GGDetailNews();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("content", (gogo.skyborn.com.gogo.Models.GGNews)menuItem);
+            fragment.setArguments(bundle);
+            fragment.setOnSelectedMenuItem(this);
+            changeFragment(fragment,((gogo.skyborn.com.gogo.Models.GGNews) menuItem).getmId());
         }
     }
 
-    @Override
-    public void onSelectedMenuItem(Object menuItem) {
-        final GGMenu menu = (GGMenu) menuItem;
+    private void getCollections(final GGMenu menu) {
         final MainActivity mainActivity = this;
-        if (menu.getmBoardType() == GGBoardType.GGCountDown) {
-            changeFragment(new GGCountDown(), menu.getmIdentifier());
-        } else if (menu.getmBoardType() == GGBoardType.GGHome) {
-            changeFragment(new GGHello(), menu.getmIdentifier());
-        } else {
-            GGCollectionManager.findCollectionWithUrl(((GGMenu) menuItem).getmIdentifier(), menu.getmUrl(), new GGOnDownloadResponse() {
-                @Override
-                public void onDownloadResponse(Object object) {
-                    GGBase fragment = null;
-                    switch (menu.getmBoardType()) {
-                        case GGHome:
-                            fragment = new GGHello();
-                            break;
-                        case GGRoutine:
-                            break;
-                        case GGList:
-                            break;
-                        case GGOutfit:
-                            break;
-                    }
-                    fragment.setOnSelectedMenuItem(mainActivity);
-                    changeFragment(fragment, menu.getmIdentifier());
-                }
-            });
+        GGBase fragment = null;
+        switch (menu.getmBoardType()) {
+            case GGHome:
+                fragment = new GGHello();
+                break;
+            case GGRoutine:
+                break;
+            case GGList:
+                fragment = new GGNews();
+                break;
+            case GGOutfit:
+                fragment = new GGOutfit();
+                break;
         }
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("item", (GGMenu) menu);
+        fragment.setArguments(bundle);
+        fragment.setOnSelectedMenuItem(mainActivity);
+        changeFragment(fragment, menu.getmIdentifier());
     }
 }

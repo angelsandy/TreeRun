@@ -1,6 +1,11 @@
 package gogo.skyborn.com.gogo.Fragment;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.AlarmClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,6 +17,7 @@ import android.widget.TimePicker;
 
 import fittree.skyborn.com.gogo.R;
 import gogo.skyborn.com.gogo.Interfaces.GGOnChangeFragmentListener;
+import gogo.skyborn.com.gogo.MainActivity;
 import gogo.skyborn.com.gogo.Utils.GGSqlInfo;
 
 
@@ -54,6 +60,11 @@ public class GGTimeWake extends Fragment implements View.OnClickListener {
                 if(mOnChange != null) {
                     mOnChange.changeFragment(null,"routine");
                 }
+                Intent i = new Intent(AlarmClock.ACTION_SET_ALARM);
+                i.putExtra(AlarmClock.EXTRA_MESSAGE, "Hora de despertar");
+                i.putExtra(AlarmClock.EXTRA_HOUR, hour);
+                i.putExtra(AlarmClock.EXTRA_MINUTES, min);
+                startActivity(i);
             }
         }
     }

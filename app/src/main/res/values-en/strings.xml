@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Gogo</string>
     <string name="sin_cuenta">¿Sin cuenta?</string>
@@ -5,9 +6,9 @@
     <string name="registrar">Registrar</string>
     <string name="contrasenia_olvidada">¿Contraseña olvidada?</string>
     <string name="facebook_app_id">1376433975786864</string>
-    <string name="titulo_contraseña">Contraseña</string>
-    <string name="titulo_correo">Correo</string>
-    <string name="titulo_get_in">Entrar</string>
+    <string name="titulo_contraseña">Password</string>
+    <string name="titulo_correo">Email</string>
+    <string name="titulo_get_in">Log me</string>
     <string name="tiempo_titulo" translatable="true">¿A qué hora debes levantarte?</string>
     <string name="rutina_mañanera" translatable="true">Rutina Mañanera</string>
     <string name="es_tarde" translatable="true">¡Es tarde!</string>

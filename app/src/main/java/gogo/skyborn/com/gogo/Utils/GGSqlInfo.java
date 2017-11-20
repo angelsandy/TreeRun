@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+
+import gogo.skyborn.com.gogo.Models.GGOutfit;
 import gogo.skyborn.com.gogo.Models.GGRoutine;
 import gogo.skyborn.com.gogo.Models.GGUser;
 
@@ -45,11 +48,21 @@ public class GGSqlInfo extends SQLiteOpenHelper {
         if (sqLiteDatabase != null) {
             sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_USER_NAME + " (" + TABLE_USER_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TABLE_USER_COLUMN_FIRSTNAME + " TEXT NOT NULL DEFAULT '', "
                     + TABLE_USER_COLUMN_EMAIL + " TEXT DEFAULT '', " + TABLE_USER_COLUMN_PICTUREWEB + " TEXT," + TABLE_USER_COLUMN_PASSWORD + " TEXT NOT NULL);");
-            sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_BAG_NAME + " (" + TABLE_BAG_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TABLE_BAG_COLUMN_ITEMNAME + " TEXT NOT NULL);");
-            sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_TIMEWAKE_NAME + " (" + TABLE_TIMEWAKE_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TABLE_TIMEWAKE_COLUMN_TIME + " TEXT NOT NULL);");
+            sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_BAG_NAME + " (" + TABLE_BAG_COLUMN_ID + " TEXT PRIMARY KEY, " + TABLE_BAG_COLUMN_ITEMNAME + " TEXT NOT NULL);");
+            sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_TIMEWAKE_NAME + " (" + TABLE_TIMEWAKE_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TABLE_TIMEWAKE_COLUMN_TIME + " TEXT NOT NULL," + TABLE_USER_COLUMN_FIRSTNAME + "TEXT NOT NULL);");
             sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_ROUTINE_NAME + " (" + TABLE_ROUTINE_COLUMN_ID + " TEXT, " + TABLE_ROUTINE_COLUMN_NAMEROUTINE + " TEXT," + TABLE_ROUTINE_COLUMN_ICON + " TEXT );");
         }
     }
+
+    public void addOutfit(GGOutfit outfit) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(TABLE_BAG_COLUMN_ID, outfit.getmId());
+        values.put(TABLE_BAG_COLUMN_ITEMNAME, outfit.getmImage());
+        db.insert(TABLE_BAG_NAME, null, values);
+        db.close();
+    }
+
 
     public void addTime(String time) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -76,9 +89,9 @@ public class GGSqlInfo extends SQLiteOpenHelper {
         values.put(TABLE_ROUTINE_COLUMN_NAMEROUTINE, routine.getmRoutineName());
         values.put(TABLE_ROUTINE_COLUMN_ICON, String.valueOf(routine.getmIconType()));
         db.insert(TABLE_ROUTINE_NAME, null, values);
-        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_ROUTINE_NAME+"",null);
+        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_ROUTINE_NAME + "", null);
         if (c.moveToFirst()) {
-            Log.e("Imprimir--->",c.getString(0));
+            Log.e("Imprimir--->", c.getString(0));
         }
         db.close();
     }
@@ -101,7 +114,7 @@ public class GGSqlInfo extends SQLiteOpenHelper {
         }
         c.close();
         db.close();
-        if(pass != null && pass.equals(password)){
+        if (pass != null && pass.equals(password)) {
             return true;
         }
         return false;
@@ -109,7 +122,7 @@ public class GGSqlInfo extends SQLiteOpenHelper {
 
     public GGUser findUser(String email) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String selectQuery = "SELECT " + TABLE_USER_COLUMN_FIRSTNAME+ ", "+ TABLE_USER_COLUMN_EMAIL + ", " +TABLE_USER_COLUMN_PICTUREWEB + " FROM " + TABLE_USER_NAME + " WHERE " + TABLE_USER_COLUMN_EMAIL + "='" + email + "'";
+        String selectQuery = "SELECT " + TABLE_USER_COLUMN_FIRSTNAME + ", " + TABLE_USER_COLUMN_EMAIL + ", " + TABLE_USER_COLUMN_PICTUREWEB + " FROM " + TABLE_USER_NAME + " WHERE " + TABLE_USER_COLUMN_EMAIL + "='" + email + "'";
         GGUser user = new GGUser();
         Cursor c = db.rawQuery(selectQuery, null);
         if (c.moveToFirst()) {
@@ -122,6 +135,19 @@ public class GGSqlInfo extends SQLiteOpenHelper {
         return user;
     }
 
+    public String findTime() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT " + TABLE_TIMEWAKE_COLUMN_TIME + " FROM " + TABLE_TIMEWAKE_NAME;
+        Cursor c = db.rawQuery(selectQuery, null);
+        String time = null;
+        if (c.moveToFirst()) {
+            time = c.getString(0);
+        }
+        c.close();
+        db.close();
+        return time;
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_USER_NAME);
@@ -129,5 +155,21 @@ public class GGSqlInfo extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_TIMEWAKE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_ROUTINE_NAME);
         onCreate(sqLiteDatabase);
+    }
+
+    public ArrayList<String> findRoutine() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<String> arrayList = new ArrayList<>();
+        String selectQuery = "SELECT " + TABLE_ROUTINE_COLUMN_NAMEROUTINE + " FROM " + TABLE_ROUTINE_NAME;
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            do {
+                arrayList.add(c.getString(0));
+
+            } while (c.moveToNext());
+        }
+        c.close();
+        db.close();
+        return arrayList;
     }
 }

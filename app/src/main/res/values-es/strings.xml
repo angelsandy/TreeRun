@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gogo</string>
+    <string name="sin_cuenta">Not member?</string>
+    <string name="registrate">Register</string>
+    <string name="registrar">Register</string>
+    <string name="contrasenia_olvidada">¿Password forgot?</string>
+    <string name="facebook_app_id">1376433975786864</string>
+    <string name="titulo_contraseña">Contraseña</string>
+    <string name="titulo_correo">Correo</string>
+    <string name="titulo_get_in">Entrar</string>
+    <string name="tiempo_titulo" translatable="true">What time you wake up?</string>
+    <string name="rutina_mañanera" translatable="true">Morning Routine</string>
+    <string name="es_tarde" translatable="true">It\'s late!</string>
+    <string name="nombre" translatable="true">Name</string>
+    <string name="calma_aun_es_temprano" translatable="true">Keep calm, it\'s early</string>
+    <string name="otra_vez" translatable="true">Again</string>
+    <string name="no_te_olvides" translatable="true">Don\'t forget...</string>
+    <string name="click_objetos" translatable="true">Click in the objects you have</string>
+    <string name="titulo_nombre" translatable="true">Name</string>
+    <string name="titulo_repetir_contraseña" translatable="true">Repeat Password</string>
+    <string name="titulo_hora_despertar" translatable="true">Hora de despertar</string>
+    <string name="titulo_nivel" translatable="true">Level</string>
+    <string name="titulo_insignias" translatable="true">Insignias</string>
+    <string name="titulo_no_olvidar" translatable="true">Can\'t forget</string>
+    <string name="titulo_anterior" translatable="true">Back</string>
+    <string name="titulo_finalizar" translatable="true">End</string>
+    <string name="titulo_temperatura" translatable="true">Today\'s temperature is:</string>
+    <string name="titulo_dia" translatable="true">Good day!, get up and smile</string>
+    <string name="arrastra" translatable="true">Drag the objects that you don\'t want to forget on your backpack</string>
+    <string name="consejo" translatable="true">Today\'s tip:</string>
+    <string name="desayuno_consejo" translatable="true">Nutritive breakfast to recharge energy</string>
+</resources>

@@ -50,14 +50,19 @@ public class GGBoard {
                 @Override
                 public void onDownloadSuccess(String o) {
                     try {
-                        jsonRaw = new JSONObject(o);
+                        if(o != null) {
+                            jsonRaw = new JSONObject(o);
+                            setProperties();
+                            if(updateBoardListener != null) {
+                                updateBoardListener.onBooardSuccess(this);
+                            }
+                        } else {
+                            updateBoardListener.onBoardFail();
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    setProperties();
-                    if(updateBoardListener != null) {
-                        updateBoardListener.onBooardSuccess(this);
-                    }
+
                 }
 
                 @Override
